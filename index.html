@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario</title>
+</head>
+<body>
+
+  <h1>Formulario</h1>
+
+  <form id="miFormulario">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" required>
+    <br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" required>
+    <br>
+    <button type="button" onclick="guardarDatos()">Guardar</button>
+  </form>
+
+  <h2>Datos Guardados</h2>
+  <ul id="listaDatos"></ul>
+
+  <script>
+    function guardarDatos() {
+    var nombre = document.getElementById('nombre').value;
+    var email = document.getElementById('email').value;
+  
+    // Crear un objeto con los datos
+    var datos = {
+      nombre: nombre,
+      email: email
+    };
+  
+    // Convertir a formato JSON y guardar en el almacenamiento local
+    localStorage.setItem('miDatos', JSON.stringify(datos));
+  
+    // Limpiar el formulario
+    document.getElementById('miFormulario').reset();
+  
+    // Actualizar la lista de datos
+    obtenerDatos();
+  }
+  
+    function obtenerDatos() {
+    var datosGuardados = localStorage.getItem('miDatos');
+  
+    // Verificar si hay datos almacenados
+    if (datosGuardados) {
+      var datos = JSON.parse(datosGuardados);
+  
+      // Mostrar los datos en la lista
+      var lista = document.getElementById('listaDatos');
+      lista.innerHTML = '<li><strong>Nombre:</strong> ' + datos.nombre + '</li><li><strong>Email:</strong> ' + datos.email + '</li>';
+    }
+  }
+  // Llamar a obtenerDatos al cargar la página para mostrar los datos existentes
+  obtenerDatos();
+  
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
